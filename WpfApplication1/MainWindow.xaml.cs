@@ -244,13 +244,13 @@ namespace WpfApplication1
 
 
             //COMMENTED FOR NOW
-            TcpClient client = new TcpClient();
-            client.Connect("128.95.31.215", 5000);
-            String text = "Success";
-            Stream stm = client.GetStream();
-            ASCIIEncoding asen = new ASCIIEncoding();
-            byte[] ba = asen.GetBytes(text);
-            stm.Write(ba, 0, ba.Length);
+            //TcpClient client = new TcpClient();
+            //client.Connect("128.95.31.215", 5000);
+            //String text = "Success";
+            //Stream stm = client.GetStream();
+            //ASCIIEncoding asen = new ASCIIEncoding();
+            //byte[] ba = asen.GetBytes(text);
+            //stm.Write(ba, 0, ba.Length);
 
 
 
