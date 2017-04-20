@@ -63,8 +63,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DesktopDuplicationException.cs" />
+    <Compile Include="DesktopDuplicator.cs" />
+    <Compile Include="DesktopFrame.cs" />
     <Compile Include="Direct3DCapture.cs" />
     <Compile Include="GDI32.cs" />
+    <Compile Include="MovedRegion.cs" />
+    <Compile Include="PointerInfo.cs" />
     <Compile Include="ScreenCapture.cs" />
     <Compile Include="second.xaml.cs">
       <DependentUpon>second.xaml</DependentUpon>
