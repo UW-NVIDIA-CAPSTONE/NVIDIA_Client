@@ -22,9 +22,14 @@ namespace WpfApplication1
     public partial class second : Window, IDisposable
     {
         //public String videoName;
-        public second()
+
+        MainWindow main;
+
+        public second(MainWindow mainRef)
         {
             InitializeComponent();
+            main = mainRef;
+
         }
 
         public void Dispose()
@@ -59,6 +64,16 @@ namespace WpfApplication1
         public void ShowYouTubeVideo(string videoCode)
         {
             this.WebBrowser1.NavigateToString(GetYouTubeVideoPlayerHTML(videoCode));
+        }
+
+        private void Skip_F_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            main.skipForward();
+        }
+
+        private void Skip_B_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            main.skipBack();
         }
     }
 }

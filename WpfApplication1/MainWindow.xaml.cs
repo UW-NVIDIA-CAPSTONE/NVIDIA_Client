@@ -52,7 +52,7 @@ namespace WpfApplication1
 
         private void createVideoWindow()
         {
-            videoWindow = new second();
+            videoWindow = new second(this);
             videoWindow.WindowStartupLocation = System.Windows.WindowStartupLocation.Manual;
             videoWindow.Top = 10;
             videoWindow.Left = 10;
@@ -132,34 +132,36 @@ namespace WpfApplication1
                 }
                 else if (e.KeyPressed.ToString() == "N")
                 {
-                    if (this.videoWindow != null && videoWindow.IsVisible)
-                    {
-                        if (this.VideoIndex != 0) {
-                            this.VideoIndex--;
-                            string label_video = this.videoList[this.VideoIndex];
-                            int idx = label_video.LastIndexOf(' ');
-                            string video = label_video.Substring(idx + 1);
-                            this.videoCode = video;
-                            this.videoWindow.ShowYouTubeVideo(this.videoCode);
-                            this.videoWindow.Show();
-                        }
-                    }
+                    //if (this.videoWindow != null && videoWindow.IsVisible)
+                    //{
+                    //    if (this.VideoIndex != 0) {
+                    //        this.VideoIndex--;
+                    //        string label_video = this.videoList[this.VideoIndex];
+                    //        int idx = label_video.LastIndexOf(' ');
+                    //        string video = label_video.Substring(idx + 1);
+                    //        this.videoCode = video;
+                    //        this.videoWindow.ShowYouTubeVideo(this.videoCode);
+                    //        this.videoWindow.Show();
+                    //    }
+                    //}
+                    skipBack();
                 }
                 else if (e.KeyPressed.ToString() == "M")
                 {
-                    if (this.videoWindow != null && videoWindow.IsVisible)
-                    {
-                        if (this.VideoIndex != this.videoList.Count - 1)
-                        {
-                            this.VideoIndex++;
-                            string label_video = this.videoList[this.VideoIndex];
-                            int idx = label_video.LastIndexOf(' ');
-                            string video = label_video.Substring(idx + 1);
-                            this.videoCode = video;
-                            this.videoWindow.ShowYouTubeVideo(this.videoCode);
-                            this.videoWindow.Show();
-                        }
-                    }
+                    //if (this.videoWindow != null && videoWindow.IsVisible)
+                    //{
+                    //    if (this.VideoIndex != this.videoList.Count - 1)
+                    //    {
+                    //        this.VideoIndex++;
+                    //        string label_video = this.videoList[this.VideoIndex];
+                    //        int idx = label_video.LastIndexOf(' ');
+                    //        string video = label_video.Substring(idx + 1);
+                    //        this.videoCode = video;
+                    //        this.videoWindow.ShowYouTubeVideo(this.videoCode);
+                    //        this.videoWindow.Show();
+                    //    }
+                    //}
+                    skipForward();
                 }
             }
         }
@@ -312,6 +314,7 @@ namespace WpfApplication1
             int index = 0;
             this.dictionary.Clear();
             this.videoList.Clear();
+
             while ((line = file.ReadLine()) != null)
             {
                 
@@ -350,5 +353,46 @@ namespace WpfApplication1
             }
             
         }
+
+
+        public void skipForward()
+        {
+            if (this.videoWindow != null && videoWindow.IsVisible)
+            {
+                if (this.VideoIndex != this.videoList.Count - 1)
+                {
+                    this.VideoIndex++;
+                    string label_video = this.videoList[this.VideoIndex];
+                    int idx = label_video.LastIndexOf(' ');
+                    string video = label_video.Substring(idx + 1);
+                    this.videoCode = video;
+                    this.videoWindow.ShowYouTubeVideo(this.videoCode);
+                    this.videoWindow.Show();
+                }
+            }
+
+        }
+
+        public void skipBack()
+        {
+            if (this.videoWindow != null && videoWindow.IsVisible)
+            {
+                if (this.VideoIndex != 0)
+                {
+                    this.VideoIndex--;
+                    string label_video = this.videoList[this.VideoIndex];
+                    int idx = label_video.LastIndexOf(' ');
+                    string video = label_video.Substring(idx + 1);
+                    this.videoCode = video;
+                    this.videoWindow.ShowYouTubeVideo(this.videoCode);
+                    this.videoWindow.Show();
+                }
+            }
+
+        }
+
+
+
+
     }
 }

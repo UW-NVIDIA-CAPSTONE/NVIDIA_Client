@@ -5,9 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApplication1"
         mc:Ignorable="d"
-        Title="Video Walkthrough" Height="540" Width="720">
+        Title="Video Walkthrough" Height="560.605" Width="729.444">
     <Grid Margin="0,0,271,3">
-        <WebBrowser x:Name="WebBrowser1" HorizontalAlignment="Left" Height="500" Margin="5,5,5,5" VerticalAlignment="Top" Width="700"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="43*"/>
+            <RowDefinition Height="210*"/>
+        </Grid.RowDefinitions>
+        <WebBrowser x:Name="WebBrowser1" HorizontalAlignment="Left" Height="480" Margin="10,-18,-267,0" VerticalAlignment="Top" Width="704" Grid.RowSpan="2"/>
+        <Button x:Name="Skip_F_Btn" Content="" Margin="0,383,-264,0" Grid.Row="1" Width="81" Height="47" Click="Skip_F_Btn_Click" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <Button.Background>
+                <ImageBrush ImageSource="Res/fast-forward.png" Stretch="Uniform"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="Skip_B_Btn" Content="" Margin="10,383,0,0" Grid.Row="1" Width="82" Height="47" Click="Skip_B_Btn_Click" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <Button.Background>
+                <ImageBrush Stretch="Uniform" ImageSource="Res/back.png"/>
+            </Button.Background>
+        </Button>
 
     </Grid>
 </Window>
