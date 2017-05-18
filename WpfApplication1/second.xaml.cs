@@ -43,6 +43,7 @@ namespace WpfApplication1
 
             const string YOUTUBE_URL = @"http://www.youtube.com/v/";
 
+
             sb.Append("<html>");
             sb.Append("    <head>");
             sb.Append("        <meta name=\"viewport\" content=\"width=device-width; height=device-height;\">");
@@ -52,12 +53,14 @@ namespace WpfApplication1
             sb.Append("            <param name=\"movie\" value=\"" + YOUTUBE_URL + videoCode + "?version=3&amp;rel=0\" />");
             sb.Append("            <param name=\"allowFullScreen\" value=\"true\" />");
             sb.Append("            <param name=\"allowscriptaccess\" value=\"always\" />");
-            sb.Append("            <embed src=\"" + YOUTUBE_URL + videoCode + "?autoplay=1&?version=3&amp;rel=0\" type=\"application/x-shockwave-flash\"");
+            sb.Append("            <embed src=\"" + YOUTUBE_URL + videoCode +"?autoplay=1&?version=3&amp;rel=0\" type=\"application/x-shockwave-flash\"");
             sb.Append("                   width=\"100%\" height=\"100%\" allowscriptaccess=\"always\" allowfullscreen=\"true\" />");
             sb.Append("        </object>");
             sb.Append("    </body>");
             sb.Append("</html>");
 
+
+           // Console.WriteLine(sb);
             return sb.ToString();
         }
 

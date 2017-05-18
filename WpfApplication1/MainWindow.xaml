@@ -22,8 +22,8 @@
             <ColumnDefinition Width="99*"/>
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
-        <TextBox x:Name="textBox_DisplayKeyboardInput" HorizontalAlignment="Left" Height="56" Margin="0,424,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" IsEnabled="False" Grid.Column="1" BorderBrush="White" Foreground="White" Background="{x:Null}" Grid.ColumnSpan="2"/>
-        <Label x:Name="label" Content="Keys Pressed" Grid.Column="1" HorizontalAlignment="Left" Margin="83,393,0,0" VerticalAlignment="Top" FontFamily="GeForce" Foreground="White" Height="26" Width="72"/>
+        <TextBox x:Name="textBox_DisplayKeyboardInput" HorizontalAlignment="Left" Height="56" Margin="0,446,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" IsEnabled="False" Grid.Column="1" BorderBrush="White" Foreground="White" Background="{x:Null}" Grid.ColumnSpan="2"/>
+        <Label x:Name="label" Content="Keys Pressed" Grid.Column="1" HorizontalAlignment="Left" Margin="83,415,0,0" VerticalAlignment="Top" FontFamily="GeForce" Foreground="White" Height="26" Width="72"/>
         <Label x:Name="label_Copy" Content="Game Library" FontSize="12pt" Grid.Column="1" HorizontalAlignment="Left" Margin="61,83,0,0" VerticalAlignment="Top" FontFamily="GeForce" Foreground="White" Height="29" Width="94"/>
         <Button x:Name="launch_INSIDE_btn" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="10,128,0,0" VerticalAlignment="Top" Width="90" Height="117" Click="launch_INSIDE_btn_Click">
             <Button.Background>
@@ -36,8 +36,11 @@
             </Button.Background>
         </Button>
 
-        <Label x:Name="label_Copy1" Content="Current Game" FontSize="9pt" Grid.Column="1" HorizontalAlignment="Left" Margin="83,278,0,0" VerticalAlignment="Top" FontFamily="GeForce" Foreground="White" Height="26" Width="72"/>
-        <TextBox x:Name="textBox_current_game" HorizontalAlignment="Left" Height="31" Margin="0,309,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" IsEnabled="False" Grid.Column="1" BorderBrush="White" Foreground="White" Background="{x:Null}" Grid.ColumnSpan="2"/>
+        <Label x:Name="label_Copy1" Content="Current Game" FontSize="9pt" Grid.Column="1" HorizontalAlignment="Left" Margin="86,338,0,0" VerticalAlignment="Top" FontFamily="GeForce" Foreground="White" Height="26" Width="72"/>
+        <TextBox x:Name="textBox_current_game" HorizontalAlignment="Left" Height="31" Margin="2,369,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" IsEnabled="False" Grid.Column="1" BorderBrush="White" Foreground="White" Background="{x:Null}" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="Username" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="4,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="217" Grid.ColumnSpan="2" Background="{x:Null}" Foreground="White"/>
+        <Label x:Name="label1" Content="Enter Username:" Grid.Column="1" HorizontalAlignment="Left" Margin="61,263,0,0" VerticalAlignment="Top" Foreground="#FFF9F9F9"/>
+        <Label x:Name="reminderLabel" Content="" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="163,261,0,0" VerticalAlignment="Top" Width="129" Grid.ColumnSpan="2" Foreground="#FFFA0000"/>
 
     </Grid>
 </Window>

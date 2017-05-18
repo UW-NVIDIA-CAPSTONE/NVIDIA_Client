@@ -46,7 +46,7 @@
   <ItemGroup>
     <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Program Files (x86)\SlimDX SDK (January 2012)\Bin\net20\x86\SlimDX.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\SlimDX SDK (January 2012)\Bin\net40\x64\SlimDX.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -74,7 +74,6 @@
     </ApplicationDefinition>
     <Compile Include="Direct3DCapture.cs" />
     <Compile Include="GDI32.cs" />
-    <Compile Include="MovedRegion.cs" />
     <Compile Include="ScreenCapture.cs" />
     <Compile Include="second.xaml.cs">
       <DependentUpon>second.xaml</DependentUpon>

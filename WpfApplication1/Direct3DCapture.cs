@@ -1,23 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using SlimDX.Direct3D9;
 
 namespace WpfApplication1
 {
-    public class Direct3DCapture
-    {
+    public static class Direct3DCapture
+    {   
         private static SlimDX.Direct3D9.Direct3D _direct3D9 = new SlimDX.Direct3D9.Direct3D();
         private static Dictionary<IntPtr, SlimDX.Direct3D9.Device> _direct3DDeviceCache = new Dictionary<IntPtr, SlimDX.Direct3D9.Device>();
-
+        
         /// &lt;summary&gt;
         /// Capture the entire client area of a window
         /// &lt;/summary&gt;
         /// &lt;param name=&quot;hWnd&quot;&gt;&lt;/param&gt;
         /// &lt;returns&gt;&lt;/returns&gt;
-        public Bitmap CaptureWindow(IntPtr hWnd)
+        public static Bitmap CaptureWindow(IntPtr hWnd)
         {
+            Console.Write("here");
             return CaptureRegionDirect3D(hWnd, NativeMethods.GetAbsoluteClientRect(hWnd));
         }
 
@@ -27,7 +28,7 @@ namespace WpfApplication1
         /// &lt;param name=&quot;handle&quot;&gt;The handle of a window&lt;/param&gt;
         /// &lt;param name=&quot;region&quot;&gt;The region to capture (in screen coordinates)&lt;/param&gt;
         /// &lt;returns&gt;A bitmap containing the captured region, this should be disposed of appropriately when finished with it&lt;/returns&gt;
-        public Bitmap CaptureRegionDirect3D(IntPtr handle, Rectangle region)
+        public static Bitmap CaptureRegionDirect3D(IntPtr handle, Rectangle region)
         {
             IntPtr hWnd = handle;
             Bitmap bitmap = null;
@@ -36,7 +37,7 @@ namespace WpfApplication1
             SlimDX.Direct3D9.AdapterInformation adapterInfo = _direct3D9.Adapters.DefaultAdapter;
             SlimDX.Direct3D9.Device device;
 
-            #region Get Direct3D Device
+           // #region Get Direct3D Device
             // Retrieve the existing Direct3D device if we already created one for the given handle
             if (_direct3DDeviceCache.ContainsKey(hWnd))
             {
@@ -61,7 +62,7 @@ namespace WpfApplication1
                 device = new SlimDX.Direct3D9.Device(_direct3D9, adapterInfo.Adapter, SlimDX.Direct3D9.DeviceType.Hardware, hWnd, SlimDX.Direct3D9.CreateFlags.SoftwareVertexProcessing, parameters);
                 _direct3DDeviceCache.Add(hWnd, device);
             }
-            #endregion
+            //#endregion
 
             // Capture the screen and copy the region into a Bitmap
             using (SlimDX.Direct3D9.Surface surface = SlimDX.Direct3D9.Surface.CreateOffscreenPlain(device, adapterInfo.CurrentDisplayMode.Width, adapterInfo.CurrentDisplayMode.Height, SlimDX.Direct3D9.Format.A8R8G8B8, SlimDX.Direct3D9.Pool.SystemMemory))
@@ -70,7 +71,9 @@ namespace WpfApplication1
 
                 // Update: thanks digitalutopia1 for pointing out that SlimDX have fixed a bug
                 // where they previously expected a RECT type structure for their Rectangle
+                device.Dispose();
                 bitmap = new Bitmap(SlimDX.Direct3D9.Surface.ToStream(surface, SlimDX.Direct3D9.ImageFileFormat.Bmp, new Rectangle(region.Left, region.Top, region.Width, region.Height)));
+
                 // Previous SlimDX bug workaround: new Rectangle(region.Left, region.Top, region.Right, region.Bottom)));
 
             }
@@ -79,7 +82,7 @@ namespace WpfApplication1
         }
     }
 
-    #region Native Win32 Interop
+    //#region Native Win32 Interop
     /// &lt;summary&gt;
     /// The RECT structure defines the coordinates of the upper-left and lower-right corners of a rectangle.
     /// &lt;/summary&gt;
@@ -117,7 +120,7 @@ namespace WpfApplication1
             return new RECT(rect.Left, rect.Top, rect.Right, rect.Bottom);
         }
     }
-
+    
     [System.Security.SuppressUnmanagedCodeSecurity()]
     internal sealed class NativeMethods
     {
@@ -163,5 +166,5 @@ namespace WpfApplication1
             return new Rectangle(new Point(windowRect.X + chromeWidth, windowRect.Y + (windowRect.Height - clientRect.Height - chromeWidth)), clientRect.Size);
         }
     }
-    #endregion
+    //#endregion
 }

@@ -40,14 +40,22 @@ namespace WpfApplication1
         public List<string> videoList = new List<string>();
         public int VideoIndex;
 
+        // private Direct3DCapture direct3D = new Direct3DCapture();
+
+
+        //Direct3D
+        
+
+
+
+
+
+        public string username = "";
+
+
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        private void generateHashTables()
-        {
-            
         }
 
         private void createVideoWindow()
@@ -82,6 +90,9 @@ namespace WpfApplication1
 
                 if (e.KeyPressed.ToString() == "H")
                 {
+
+                    username = Username.Text;
+                    Console.WriteLine(username);
                     //Find the Window handle for INSIDE and Portal in order for us to only take screen
                     //captures of those windows and not just the screen.
                     /////////////////////////////////////////////////////////////////////////////////////
@@ -112,9 +123,16 @@ namespace WpfApplication1
                     ////TODO if Process doesnt see INSIDE or Portal then the games are not
                     ////running therefore prompt the user to run the games.
 
+
+
+
+
                     //////////////////////////////////////////////////////////////////////////////////////
                     //var watch = System.Diagnostics.Stopwatch.StartNew();
                     // the code that you want to measure comes here
+                    string text = DateTime.Now.ToString("MM'/'dd'/'yyyy HH':'mm':'ss.fff");
+                    Console.WriteLine("Start Capture : " + text);
+
                     capture();//take the screenshot
                     sendAndReceive();
                     //watch.Stop();
@@ -126,41 +144,57 @@ namespace WpfApplication1
                     if (videoWindow != null && videoWindow.IsVisible)
                     {
                         System.Console.WriteLine("close video window!");
+                        string text2 = DateTime.Now.ToString("MM'/'dd'/'yyyy HH':'mm':'ss.fff");
+                        Console.WriteLine("finished : " + text2);
                         //videoWindow.Close();
                         videoWindow.Hide();
                     }
                 }
                 else if (e.KeyPressed.ToString() == "N")
                 {
-                    //if (this.videoWindow != null && videoWindow.IsVisible)
-                    //{
-                    //    if (this.VideoIndex != 0) {
-                    //        this.VideoIndex--;
-                    //        string label_video = this.videoList[this.VideoIndex];
-                    //        int idx = label_video.LastIndexOf(' ');
-                    //        string video = label_video.Substring(idx + 1);
-                    //        this.videoCode = video;
-                    //        this.videoWindow.ShowYouTubeVideo(this.videoCode);
-                    //        this.videoWindow.Show();
-                    //    }
-                    //}
+                    if (this.videoWindow != null && videoWindow.IsVisible)
+                    {
+                        if (this.VideoIndex != 0)
+                        {
+
+                            System.Console.WriteLine("before Call minus current video index number: " + this.VideoIndex);
+                            this.VideoIndex--;
+
+                            string label_video = this.videoList[this.VideoIndex];
+                            System.Console.WriteLine("pressed N label+videoCode " + label_video);
+                            int idx = label_video.LastIndexOf(' ');
+                            string video = label_video.Substring(idx + 1);
+                            this.videoCode = video;
+
+                            string lastLabel = label_video.Substring(0, idx);
+                            System.Console.WriteLine("current video index number: " + this.VideoIndex);
+                            System.Console.WriteLine("LastLabel : " + lastLabel);
+                            System.Console.WriteLine("this vieo code :" + video);
+                            this.videoWindow.ResultLabel.Content = lastLabel;
+
+                            this.videoWindow.ShowYouTubeVideo(this.videoCode);
+                            this.videoWindow.Show();
+                        }
+                    }
                     skipBack();
                 }
                 else if (e.KeyPressed.ToString() == "M")
                 {
-                    //if (this.videoWindow != null && videoWindow.IsVisible)
-                    //{
-                    //    if (this.VideoIndex != this.videoList.Count - 1)
-                    //    {
-                    //        this.VideoIndex++;
-                    //        string label_video = this.videoList[this.VideoIndex];
-                    //        int idx = label_video.LastIndexOf(' ');
-                    //        string video = label_video.Substring(idx + 1);
-                    //        this.videoCode = video;
-                    //        this.videoWindow.ShowYouTubeVideo(this.videoCode);
-                    //        this.videoWindow.Show();
-                    //    }
-                    //}
+                    if (this.videoWindow != null && videoWindow.IsVisible)
+                    {
+                        if (this.VideoIndex != this.videoList.Count - 1)
+                        {
+                            this.VideoIndex++;
+                            string label_video = this.videoList[this.VideoIndex];
+                            int idx = label_video.LastIndexOf(' ');
+                            string video = label_video.Substring(idx + 1);
+                            string nextLabel = label_video.Substring(0, idx);
+                            this.videoWindow.ResultLabel.Content = nextLabel;
+                            this.videoCode = video;
+                            this.videoWindow.ShowYouTubeVideo(this.videoCode);
+                            this.videoWindow.Show();
+                        }
+                    }
                     skipForward();
                 }
             }
@@ -190,7 +224,7 @@ namespace WpfApplication1
             double screenHeight = SystemParameters.VirtualScreenHeight;
             Bitmap bmp = new Bitmap((int)screenWidth, (int)screenHeight);
 
-
+            //Direct3DCapture.CaptureWindow(steamHandle).Save("capturefile2.png");
 
             using (Graphics g = Graphics.FromImage(bmp))
             {
@@ -220,13 +254,28 @@ namespace WpfApplication1
 
                 // restore selection
                 GDI32.SelectObject(hdcDest, hOld);
-                        
-                // get a .NET image object for it
-                System.Drawing.Image img = System.Drawing.Image.FromHbitmap(hBitmap);
-
-                Bitmap capImage = (Bitmap)img;
-                capImage.Save("capturefile.png");
                 
+                // get a .NET image object for it
+                                        System.Drawing.Image img = System.Drawing.Image.FromHbitmap(hBitmap);
+
+                //System.Drawing.Image img2 = System.Drawing.Image.FromHbitmap(picture);
+
+                
+
+                Bitmap capImage = (Bitmap) img;
+                capImage.Save("capturefile.png");
+
+
+
+
+
+                //Bitmap capImage2 = (Bitmap) img2;
+                // picture.Save("capturefile2.png");
+
+
+
+                string text = DateTime.Now.ToString("MM'/'dd'/'yyyy HH':'mm':'ss.fff");
+                Console.WriteLine("Start resize image : " + text);
 
                 ImageConverter converter2 = new ImageConverter();
                 Bitmap resize = new Bitmap(capImage, new System.Drawing.Size(256, 256));
@@ -240,9 +289,11 @@ namespace WpfApplication1
 
         // Sends 
 
+        
         private async void sendAndReceive()
         {
-
+            string text = DateTime.Now.ToString("MM'/'dd'/'yyyy HH':'mm':'ss.fff");
+            Console.WriteLine("Start send file : " + text);
             var watch = System.Diagnostics.Stopwatch.StartNew();
 
             using (var client = new HttpClient())
@@ -253,9 +304,15 @@ namespace WpfApplication1
 
                     using (
                        var message =
-                           await client.PostAsync("http://128.95.31.215:5000/?gamename=" + current_game, ct))
+                           await client.PostAsync("http://128.95.31.215:5000/?gamename=" + current_game + "&username=" + username, ct))
                     {
+                        string text4 = DateTime.Now.ToString("MM'/'dd'/'yyyy HH':'mm':'ss.fff");
+                        Console.WriteLine("already send : " + text4);
+
                         var input = await message.Content.ReadAsStringAsync();
+                        string text1 = DateTime.Now.ToString("MM'/'dd'/'yyyy HH':'mm':'ss.fff");
+                        Console.WriteLine("Received result : " + text1);
+
                         Console.WriteLine(input);
                         getVideoCode(input);
 
@@ -263,6 +320,11 @@ namespace WpfApplication1
                         {
                             createVideoWindow();
                         }
+
+                        /////////////////////////////////////////////////
+                        this.videoWindow.ResultLabel.Content = input;
+                        string text2 = DateTime.Now.ToString("MM'/'dd'/'yyyy HH':'mm':'ss.fff");
+                        Console.WriteLine("Show video : " + text2);
                         this.videoWindow.ShowYouTubeVideo(this.videoCode);
                         this.videoWindow.Show();
                     }
@@ -281,35 +343,50 @@ namespace WpfApplication1
 
         private void launch_INSIDE_btn_Click(object sender, RoutedEventArgs e)
         {
-            current_game = "INSIDE";
-            textBox_current_game.Text = "";
-            textBox_current_game.Text = current_game;
-            Process[] processes = Process.GetProcessesByName("INSIDE");
-            System.Console.WriteLine(processes);
-            if (processes.Length == 0)
+            if (Username.Text == "")
             {
-                Process.Start("steam://rungameid/304430");
+ 
+                reminderLabel.Content = "Please Enter Username first";
             }
-            startPressed = true;
-            GenerateDictionary(current_game);
+            else
+            {
+                current_game = "INSIDE";
+                textBox_current_game.Text = "";
+                textBox_current_game.Text = current_game;
+                Process[] processes = Process.GetProcessesByName("INSIDE");
+                System.Console.WriteLine(processes);
+                if (processes.Length == 0)
+                {
+                    Process.Start("steam://rungameid/304430");
+                }
+                startPressed = true;
+                GenerateDictionary(current_game);
+            }
         }
 
         private void launch_Portal_btn_Click(object sender, RoutedEventArgs e)
         {
-            current_game = "Portal";
-            textBox_current_game.Text = "";
-            textBox_current_game.Text = current_game;
-            Process[] processes = Process.GetProcessesByName("hl2");
-            if (processes.Length == 0)
+            if (Username.Text == "")
             {
-                Process.Start("steam://rungameid/400");
+                reminderLabel.Content = "Please Enter Username first";
             }
-            startPressed = true;
-            GenerateDictionary(current_game);
+            else
+            {
+                current_game = "Portal";
+                textBox_current_game.Text = "";
+                textBox_current_game.Text = current_game;
+                Process[] processes = Process.GetProcessesByName("hl2");
+                if (processes.Length == 0)
+                {
+                    Process.Start("steam://rungameid/400");
+                }
+                startPressed = true;
+                GenerateDictionary(current_game);
+            }
         }
 
         private void GenerateDictionary(String current_game){
-            System.IO.StreamReader file =new System.IO.StreamReader(current_game+"_videos.txt");
+            System.IO.StreamReader file =new System.IO.StreamReader(current_game + "_videos.txt");
             string line;
             int index = 0;
             this.dictionary.Clear();
@@ -345,18 +422,19 @@ namespace WpfApplication1
                 int idx = label_video.LastIndexOf(' ');
                 string video = label_video.Substring(idx + 1);
                 Console.WriteLine("getVideoCode label is : " + label);
+                ////////////////////////////////////////////////////////////////////////
                 this.videoCode = video;
                 Console.WriteLine("this youtube video code is : " + this.videoCode);
             }
             else {
                 Console.WriteLine("Can not find this label in the dictionary : " + data);
-            }
-            
+            }  
         }
 
 
         public void skipForward()
         {
+            /*
             if (this.videoWindow != null && videoWindow.IsVisible)
             {
                 if (this.VideoIndex != this.videoList.Count - 1)
@@ -369,12 +447,12 @@ namespace WpfApplication1
                     this.videoWindow.ShowYouTubeVideo(this.videoCode);
                     this.videoWindow.Show();
                 }
-            }
+            }*/
 
         }
 
         public void skipBack()
-        {
+        {   /*
             if (this.videoWindow != null && videoWindow.IsVisible)
             {
                 if (this.VideoIndex != 0)
@@ -387,9 +465,10 @@ namespace WpfApplication1
                     this.videoWindow.ShowYouTubeVideo(this.videoCode);
                     this.videoWindow.Show();
                 }
-            }
-
+            }*/
         }
+
+
 
 
 

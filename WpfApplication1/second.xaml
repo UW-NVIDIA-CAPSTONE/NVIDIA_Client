@@ -11,7 +11,16 @@
             <RowDefinition Height="43*"/>
             <RowDefinition Height="210*"/>
         </Grid.RowDefinitions>
-        <WebBrowser x:Name="WebBrowser1" HorizontalAlignment="Left" Height="480" Margin="10,-18,-267,0" VerticalAlignment="Top" Width="704" Grid.RowSpan="2"/>
+        <WebBrowser x:Name="WebBrowser1" HorizontalAlignment="Left" Height="446" Margin="7,13,-260,0" VerticalAlignment="Top" Width="703" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5">
+            <WebBrowser.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.175"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </WebBrowser.RenderTransform>
+        </WebBrowser>
         <Button x:Name="Skip_F_Btn" Content="" Margin="0,383,-264,0" Grid.Row="1" Width="81" Height="47" Click="Skip_F_Btn_Click" HorizontalAlignment="Right" VerticalAlignment="Top">
             <Button.Background>
                 <ImageBrush ImageSource="Res/fast-forward.png" Stretch="Uniform"/>
@@ -22,6 +31,7 @@
                 <ImageBrush Stretch="Uniform" ImageSource="Res/back.png"/>
             </Button.Background>
         </Button>
+        <Label x:Name="ResultLabel" Content="Label" HorizontalAlignment="Center" Margin="205,383,-69,0" VerticalAlignment="Top" Grid.Row="1" Width="314"/>
 
     </Grid>
 </Window>
